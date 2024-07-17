@@ -1,6 +1,8 @@
 import React, { ChangeEvent, useState } from 'react';
 import { FaEye } from "react-icons/fa6";
 import { FaEyeSlash } from "react-icons/fa6";
+import Markdown from 'react-markdown';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
 import './App.css';
 
@@ -47,6 +49,9 @@ export default function App() {
 
   const [showCaptchaModal, setShowCaptchaModal] = useState(false);
 
+  const [geetestValidate, setGeetestValidate] = useState<string | null>(null);
+  const [geetestSeccode, setGeetestSeccode] = useState<string | null>(null);
+
   const handleInputGtChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputGtValue(event.target.value);
   };
@@ -65,7 +70,8 @@ export default function App() {
     const handler = (captchaObj: GeetestCaptchaObj) => {
       captchaObj.onSuccess(() => {
         const result = captchaObj.getValidate();
-        console.log(`Geetest captcha validate successfully: validate: ${result.geetest_validate}, seccode: ${result.geetest_seccode}`);
+        setGeetestValidate(result.geetest_validate);
+        setGeetestSeccode(result.geetest_seccode);
       })
       captchaObj.onReady(() => {
         captchaObj.verify();
@@ -86,16 +92,23 @@ export default function App() {
       offline: false,
       new_captcha: true,
       product: 'bind',
-      width: '300px',
       https: true,
       area: '#captcha-area',
     }, handler);
   };
 
+  const result = `const validate: string = '${geetestValidate}'\nconst seccode: string = '${geetestSeccode}'`;
+
   return (
     <div className="login-main">
       <div className="login-left">
-        <h1>Geetest Demo</h1>
+        {geetestValidate && geetestSeccode ? (
+          <SyntaxHighlighter className="geetest-result" language="javascript">
+            {result}
+          </SyntaxHighlighter>
+        ) : (
+          <h1>Geetest Demo</h1>
+        )}
       </div>
       <div className="login-right">
         <div className="login-right-container">
