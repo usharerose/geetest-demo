@@ -2,8 +2,8 @@ import React, { useState, ChangeEvent } from 'react';
 import { FaEye } from "react-icons/fa6";
 import { FaEyeSlash } from "react-icons/fa6";
 
-import GeetestCaptcha from './captcha';
 import './App.css';
+import GeetestCaptcha from './Captcha';
 
 export default function App() {
   const [inputGtValue, setInputGtValue] = useState('');
