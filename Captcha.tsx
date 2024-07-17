@@ -27,9 +27,7 @@ const GeetestCaptcha: React.FC<GeetestProps> = ({ gt, challenge }) => {
   }, [gt, challenge]);
 
   return (
-    <div>
-      <div id="captchaBox"></div>
-    </div>
+    <div id="captchaBox"></div>
   );
 }
 
