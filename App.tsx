@@ -20,7 +20,7 @@ export default function App() {
     setInputChallengeValue(event.target.value);
   };
 
-  const handleButtonClick = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!inputGtValue || !inputChallengeValue) {
       alert('Please fill the form first');
@@ -43,7 +43,7 @@ export default function App() {
           <div className="login-center">
             <h2>Welcome to debug with Geetest Captcha</h2>
             <p>Please enter your <strong>gt</strong> and <strong>challenge</strong> from server</p>
-            <form onSubmit={handleButtonClick}>
+            <form onSubmit={handleFormSubmmit}>
               <div className="pass-input-div">
                 <input
                   type="text"
