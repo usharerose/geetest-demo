@@ -1,17 +1,51 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { FaEye } from "react-icons/fa6";
 import { FaEyeSlash } from "react-icons/fa6";
 
 import './App.css';
-import GeetestCaptcha from './Captcha';
+
+type GeetestValidateResult = {
+  geetest_challenge: string;
+  geetest_seccode: string;
+  geetest_validate: string;
+};
+
+type GeetestError = {
+  code: string;
+  error_code: string;
+  msg: string;
+  user_info: string;
+};
+
+type OnReadyFn = () => void;
+type OnNextReadyFn = () => void;
+type OnSuccessFn = (result: GeetestValidateResult | undefined) => void;
+type OnFailFn = (error: GeetestError) => void;
+type OnErrorFn = (error: GeetestError) => void;
+type OnCloseFn = () => void;
+
+interface GeetestCaptchaObj {
+  appendTo: (element: HTMLElement | string) => void;
+  onReady: (callback: OnReadyFn) => void;
+  onNextReady: (callback: OnNextReadyFn) => void;
+  onSuccess: (callback: OnSuccessFn) => void;
+  onFail: (callback: OnFailFn) => void;
+  onError: (callback: OnErrorFn) => void;
+  onClose: (callback: OnCloseFn) => void;
+  getValidate: () => GeetestValidateResult;
+  reset: () => void;
+  showCaptcha: () => void;
+  destroy: () => void;
+  verify: () => void;
+}
 
 export default function App() {
   const [inputGtValue, setInputGtValue] = useState('');
-  const [gtValue, setGtValue] = useState<string | null>(null);
 
   const [inputChallengeValue, setInputChallengeValue] = useState('');
-  const [challengeValue, setChallengeValue] = useState<string | null>(null);
   const [showChallengeValue, setShowChallengeValue] = useState(false);
+
+  const [showCaptchaModal, setShowCaptchaModal] = useState(false);
 
   const handleInputGtChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputGtValue(event.target.value);
@@ -26,8 +60,36 @@ export default function App() {
       alert('Please fill the form first');
       return;
     }
-    setGtValue(inputGtValue);
-    setChallengeValue(inputChallengeValue);
+    setShowCaptchaModal(true);
+
+    const handler = (captchaObj: GeetestCaptchaObj) => {
+      captchaObj.onSuccess(() => {
+        const result = captchaObj.getValidate();
+        console.log(`Geetest captcha validate successfully: validate: ${result.geetest_validate}, seccode: ${result.geetest_seccode}`);
+      })
+      captchaObj.onReady(() => {
+        captchaObj.verify();
+      })
+      captchaObj.onError((error: GeetestError) => {
+        console.log(`onError: ${JSON.stringify(error)}`);
+        // raise error_100 when call verify() first time
+        // with message: '传给appendTo接口的参数有误：只接受id选择器和DOM元素，并且需保证其存在于页面中'
+        if (error.code !== 'error_100') {
+          alert(`${error.msg}`);
+        }
+      });
+    };
+
+    (window as any).initGeetest({
+      gt: inputGtValue,
+      challenge: inputChallengeValue,
+      offline: false,
+      new_captcha: true,
+      product: 'bind',
+      width: '300px',
+      https: true,
+      area: '#captcha-area',
+    }, handler);
   };
 
   return (
@@ -78,13 +140,11 @@ export default function App() {
               <div className="login-center-buttons">
                 <button type="submit">Generate captcha</button>
               </div>
-              <div>
-                {gtValue && challengeValue && <GeetestCaptcha gt={gtValue} challenge={challengeValue} />}
-              </div>
             </form>
           </div>
         </div>
       </div>
+      {showCaptchaModal && <div className="#captcha-area"></div>}
     </div>
   );
 }

@@ -179,3 +179,10 @@ form button[type='submit'] {
 .login-bottom-p a:hover {
   text-decoration: underline;
 }
+
+#captcha-area {
+  padding: 150px 0;
+  width: 440px;
+  margin: 0 auto;
+  border: 1px solid gray;
+}
