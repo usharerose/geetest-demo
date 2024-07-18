@@ -3,7 +3,7 @@
 }
 
 .login-left {
-  flex-grow: 1;
+  width: 40%;
   height: 100vh;
   background-color: #E9E9E9;
 
@@ -178,4 +178,31 @@ form button[type='submit'] {
 
 .login-bottom-p a:hover {
   text-decoration: underline;
+}
+
+#captcha-area {
+  padding: 150px 0;
+  width: 440px;
+  margin: 0 auto;
+  border: 1px solid gray;
+}
+
+.geetest-result {
+  font-family: Monospace, Monaco, Arial, sans-serif;
+  background-color: #f7f7f7;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 16px;
+  margin: 16px 0;
+  width: 80%;
+  line-height: 1.6;
+  overflow-x: scroll;
+}
+
+.geetest-result p {
+  margin: 8px 0;
+}
+
+.geetest-result strong {
+  font-weight: bold;
 }
