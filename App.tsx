@@ -1,7 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
-import { FaEye } from "react-icons/fa6";
-import { FaEyeSlash } from "react-icons/fa6";
-import Markdown from 'react-markdown';
+import { FaEye, FaEyeSlash, FaCopy } from "react-icons/fa6";
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
 import './App.css';
@@ -52,6 +51,8 @@ export default function App() {
   const [geetestValidate, setGeetestValidate] = useState<string | null>(null);
   const [geetestSeccode, setGeetestSeccode] = useState<string | null>(null);
 
+  const [copied, setCopied] = useState(false);
+
   const handleInputGtChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputGtValue(event.target.value);
   };
@@ -97,15 +98,26 @@ export default function App() {
     }, handler);
   };
 
-  const result = `const validate: string = '${geetestValidate}'\nconst seccode: string = '${geetestSeccode}'`;
+  const result = `const validate: string = '${geetestValidate}';\nconst seccode: string = '${geetestSeccode}';`;
 
   return (
     <div className="login-main">
       <div className="login-left">
         {geetestValidate && geetestSeccode ? (
-          <SyntaxHighlighter className="geetest-result" language="javascript">
-            {result}
-          </SyntaxHighlighter>
+          <div className="code-snippet-container">
+            <div className="code-snippet-header">
+              <span className="language-hint">Typescript</span>
+              <CopyToClipboard text={result} onCopy={() => setCopied(true)}>
+                <button className="copy-button">
+                  <FaCopy />
+                  {copied ? ' Copied!' : ' Copy code'}
+                </button>
+              </CopyToClipboard>
+            </div>
+            <SyntaxHighlighter className="geetest-result" language="typescript">
+              {result}
+            </SyntaxHighlighter>
+          </div>
         ) : (
           <h1>Geetest Demo</h1>
         )}
