@@ -15,6 +15,7 @@ export default function App() {
 
   const [showCaptchaModal, setShowCaptchaModal] = useState(false);
 
+  const [geetestChallenge, setGeetestChallenge] = useState<string | null>(null);
   const [geetestValidate, setGeetestValidate] = useState<string | null>(null);
   const [geetestSeccode, setGeetestSeccode] = useState<string | null>(null);
 
@@ -38,6 +39,7 @@ export default function App() {
     const handler: InitGeetestCallback = (captchaObj: GeetestCaptchaObj) => {
       captchaObj.onSuccess(() => {
         const result = captchaObj.getValidate();
+        setGeetestChallenge(result.geetest_challenge);
         setGeetestValidate(result.geetest_validate);
         setGeetestSeccode(result.geetest_seccode);
       });
@@ -65,7 +67,7 @@ export default function App() {
     }, handler);
   };
 
-  const result = `const validate: string = '${geetestValidate}';\nconst seccode: string = '${geetestSeccode}';`;
+  const result = `const challenge: string = '${geetestChallenge}';\nconst validate: string = '${geetestValidate}';\nconst seccode: string = '${geetestSeccode}';`;
 
   return (
     <div className="login-main">
