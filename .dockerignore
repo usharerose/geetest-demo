@@ -1,0 +1,13 @@
+# Git
+.git
+.gitattributes
+.gitignore
+
+# Jetbrains
+.idea
+
+# VSCode
+.vscode
+
+# Dependencies
+node_modules

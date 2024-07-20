@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
-import { FaEye, FaEyeSlash, FaCopy } from "react-icons/fa6";
+import { FaEye, FaEyeSlash, FaCopy } from 'react-icons/fa6';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
@@ -73,10 +73,10 @@ export default function App() {
         const result = captchaObj.getValidate();
         setGeetestValidate(result.geetest_validate);
         setGeetestSeccode(result.geetest_seccode);
-      })
+      });
       captchaObj.onReady(() => {
         captchaObj.verify();
-      })
+      });
       captchaObj.onError((error: GeetestError) => {
         console.log(`onError: ${JSON.stringify(error)}`);
         // raise error_100 when call verify() first time
@@ -94,7 +94,7 @@ export default function App() {
       new_captcha: true,
       product: 'bind',
       https: true,
-      area: '#captcha-area',
+      area: '#captcha-area'
     }, handler);
   };
 
@@ -142,7 +142,7 @@ export default function App() {
               </div>
               <div className="pass-input-div">
                 <input
-                  type={showChallengeValue ? "text" : "password"}
+                  type={showChallengeValue ? 'text' : 'password'}
                   value={inputChallengeValue}
                   onChange={handleInputChallengeChange}
                   placeholder="challenge"
