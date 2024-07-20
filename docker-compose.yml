@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+
+  geetest-demo-build:
+    build:
+      context: .
+    image: geetest-demo:${IMAGE_TAG:-latest}
+
+  geetest-demo-run:
+    image: geetest-demo:${IMAGE_TAG:-latest}
+    command: ["nginx", "-g", "daemon off;"]
+    ports:
+      - "30001:80"
