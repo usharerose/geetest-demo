@@ -5,6 +5,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
 import './App.css';
 import { GeetestCaptchaObj, GeetestError, InitGeetestCallback } from './App.type';
+import GithubIcon from './github-mark.svg';
 
 export default function App() {
   const [inputGtValue, setInputGtValue] = useState('');
@@ -133,6 +134,9 @@ export default function App() {
               </div>
             </form>
           </div>
+          <p className="login-bottom-p">
+            Credits: Style follows the project 「<a href="https://github.com/Kuzma02/Login-Page-In-React" target="_blank">Login-Page-In-React <img src={GithubIcon} style={{ width: '1em', height: '1em' }} alt="" /></a>」
+          </p>
         </div>
       </div>
       {showCaptchaModal && <div className="#captcha-area"></div>}
