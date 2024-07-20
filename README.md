@@ -33,7 +33,7 @@ This page simulate the process that generate captcha with meta (please prepare y
 You can view the page from,
 
 * Online with [URL](https://usharerose.github.io/geetest-demo/)
-* Local with [URL](localhost:30001) after the command `make run` succeed
+* Local with [URL](http://127.0.0.1:30001) after the command `make run` succeed
 
 ## Development Environment
 
