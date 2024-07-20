@@ -7,6 +7,9 @@ run: build clean-container
 lint:
 	npm run lint
 
+test:
+	npm run test
+
 clean-container:
 	# stop and remove useless containers
 	docker-compose down --remove-orphans

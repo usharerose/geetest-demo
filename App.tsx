@@ -4,41 +4,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
 import './App.css';
-
-type GeetestValidateResult = {
-  geetest_challenge: string;
-  geetest_seccode: string;
-  geetest_validate: string;
-};
-
-type GeetestError = {
-  code: string;
-  error_code: string;
-  msg: string;
-  user_info: string;
-};
-
-type OnReadyFn = () => void;
-type OnNextReadyFn = () => void;
-type OnSuccessFn = (result: GeetestValidateResult | undefined) => void;
-type OnFailFn = (error: GeetestError) => void;
-type OnErrorFn = (error: GeetestError) => void;
-type OnCloseFn = () => void;
-
-interface GeetestCaptchaObj {
-  appendTo: (element: HTMLElement | string) => void;
-  onReady: (callback: OnReadyFn) => void;
-  onNextReady: (callback: OnNextReadyFn) => void;
-  onSuccess: (callback: OnSuccessFn) => void;
-  onFail: (callback: OnFailFn) => void;
-  onError: (callback: OnErrorFn) => void;
-  onClose: (callback: OnCloseFn) => void;
-  getValidate: () => GeetestValidateResult;
-  reset: () => void;
-  showCaptcha: () => void;
-  destroy: () => void;
-  verify: () => void;
-}
+import { GeetestCaptchaObj, GeetestError, InitGeetestCallback } from './App.type';
 
 export default function App() {
   const [inputGtValue, setInputGtValue] = useState('');
@@ -68,7 +34,7 @@ export default function App() {
     }
     setShowCaptchaModal(true);
 
-    const handler = (captchaObj: GeetestCaptchaObj) => {
+    const handler: InitGeetestCallback = (captchaObj: GeetestCaptchaObj) => {
       captchaObj.onSuccess(() => {
         const result = captchaObj.getValidate();
         setGeetestValidate(result.geetest_validate);
@@ -130,7 +96,7 @@ export default function App() {
           <div className="login-center">
             <h2>Welcome to debug with Geetest Captcha</h2>
             <p>Please enter your <strong>gt</strong> and <strong>challenge</strong> from server</p>
-            <form onSubmit={handleFormSubmmit}>
+            <form aria-label="login-form" onSubmit={handleFormSubmmit}>
               <div className="pass-input-div">
                 <input
                   type="text"
