@@ -5,7 +5,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
 import './App.css';
 import { GeetestCaptchaObj, GeetestError, InitGeetestCallback } from './App.type';
-import GithubIcon from './github-mark.svg';
+import GithubIcon from './assets/github-mark.svg';
 
 export default function App() {
   const [inputGtValue, setInputGtValue] = useState('');
