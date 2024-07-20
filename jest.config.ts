@@ -7,7 +7,7 @@ const config: Config.InitialOptions = {
   setupFilesAfterEnv: ['<rootDir>/setupTests.ts'],
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',
-    '\\.(jpg|jpeg|png|gif|svg)$': '<rootDir>/file-transform.js'
+    '\\.(jpg|jpeg|png|gif|svg)$': '<rootDir>/src/__mocks__/file-transform.js'
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   moduleNameMapper: {

@@ -5,6 +5,6 @@ module.exports = {
     };
   },
   getCacheKey() {
-    return 'file-transformer';
+    return 'file-transform';
   }
 };
